@@ -1,3 +1,6 @@
+#ifndef TOKEN_H
+#define TOKEN_H
+
 enum Token{
     IF,
     THEN,
@@ -13,6 +16,7 @@ enum Token{
     BOOL,
     ATRIBUICAO
 };
+#endif 
 
 void e_digito();
 void e_caracter();
