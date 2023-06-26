@@ -5,7 +5,9 @@
 
 using namespace std;
 
-bool e_digito()
+bool e_digito(char *str){
+
+}
 
 int main(){
     
