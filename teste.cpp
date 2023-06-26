@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <map>
 
 enum Token {
     IF = 256,
@@ -17,9 +18,26 @@ enum Token {
     ATRIBUICAO
 };
 
+
+std::map<Token, std::string> tokenToString = {
+    { IF, "IF" },
+    { THEN, "THEN" },
+    { DO, "DO" },
+    { WHILE, "WHILE" },
+    { FOR, "FOR" },
+    { ELSE, "ELSE" },
+    { SWITCH, "SWITCH" },
+    { ID, "ID" },
+    { NUM, "NUM" },
+    { SOMA, "SOMA" },
+    { INT, "INT" },
+    { BOOL, "BOOL" },
+    { ATRIBUICAO, "ATRIBUICAO" }
+};
+
 Token getToken(const std::string& tokenString) {
     if (tokenString == "if") {
-        return IF;
+        return Token::IF;
     } else if (tokenString == "then") {
         return THEN;
     } else if (tokenString == "do") {
@@ -50,6 +68,8 @@ Token getToken(const std::string& tokenString) {
     }
 }
 
+
+
 int main() {
     std::string inputToken;
     std::cout << "Digite o token: ";
@@ -57,7 +77,11 @@ int main() {
     
     Token token = getToken(inputToken);
     
-    std::cout << "Token encontrado: " << token << std::endl;
+    if (tokenToString.count(token) > 0) {
+        std::cout << "Token encontrado: " << tokenToString[token] << std::endl;
+    } else {
+        std::cout << "Token não encontrado." << std::endl;
+    }
     
     return 0;
 }
