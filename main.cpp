@@ -14,6 +14,7 @@ enum TokenTag{
     BOOL,
     REAL,
     STRING,
+    OPER_ARIT,
     ATRIBUICAO,
     SOMA,
     SUB,
@@ -42,6 +43,7 @@ enum TokenTag{
     OR,
     N_INT,
     N_REAL,
+    N_STRING,
     IGUAL,
     DIFERENTE,
     PONTO,
@@ -68,6 +70,28 @@ bool isIdentifier(const string& str) {
             return false;
     }
     
+    return true;
+}
+
+bool isNstring(const string& input) {
+    if (input.empty() || input.length() < 2) {
+        return false;
+    }
+
+    if (input.front() != '"' || input.back() != '"') {
+        return false;
+    }
+
+    for (size_t i = 1; i < input.length() - 1; i++) {
+        char c = input[i];
+        if (isspace(c)) {
+            continue; 
+        }
+        if (!(isalpha(c) || isdigit(c) || ispunct(c))) {
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -141,13 +165,13 @@ Token le_Token(const string& token){
     } else if (token == "=") {
         result.tag = ATRIBUICAO;
     } else if (token == "+") {
-        result.tag = SOMA;
+        result.tag = OPER_ARIT;
     } else if (token == "-") {
-        result.tag = SUB;
+        result.tag = OPER_ARIT;
     } else if (token == "*") {
-        result.tag = MUL;
+        result.tag = OPER_ARIT;
     } else if (token == "/") {
-        result.tag = DIV;
+        result.tag = OPER_ARIT;
     } else if (token == "==") {
         result.tag = IGUAL;
     } else if (token == "!=") {
@@ -184,6 +208,8 @@ Token le_Token(const string& token){
         result.tag = AND;
     } else if (token == "||") {
         result.tag = OR;
+    } else if(isNstring(cleanedToken)){
+        result.tag = N_STRING;
     } else if (isIdentifier(cleanedToken)) {
         result.tag = ID;
     } else {
@@ -200,6 +226,8 @@ string tokenTagToString(TokenTag Tag) {
             return "N_INT";
         case N_REAL:
             return "N_REAL";
+        case N_STRING:
+            return "N_STRING";
         case INT:
             return "INT";
         case FLOAT:
@@ -232,14 +260,8 @@ string tokenTagToString(TokenTag Tag) {
             return "PONTO";
         case VIRGULA:
             return "VIRGULA";
-        case SOMA:
-            return "SOMA";
-        case SUB:
-            return "SUB";
-        case MUL:
-            return "MUL";
-        case DIV:
-            return "DIV";
+        case OPER_ARIT:
+            return "OPER_ARIT";
         case READ:
             return "READ";
         case WRITE:
