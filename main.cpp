@@ -53,37 +53,36 @@ enum TokenTag{
 
 struct Token {
     TokenTag tag;
-    string lexeme;
+    string lexema;
 };
 
-bool isIdentifier(const string& str) {
-    if (str.empty())
+bool eh_identificador(const string& palavra) {
+    if (palavra.empty())
         return false;
     
-    char firstChar = str[0];
-    if (!isalpha(firstChar) && firstChar != '_')
+    char primeiro_caracter = palavra[0];
+    if (!isalpha(primeiro_caracter) && primeiro_caracter != '_')
         return false;
     
-    for (size_t i = 1; i < str.length(); i++){
-        char c = str[i];
+    for (size_t i = 1; i < palavra.length(); i++){
+        char c = palavra[i];
         if (!isalnum(c) && c != '_')
             return false;
     }
-    
     return true;
 }
 
-bool isNstring(const string& input) {
-    if (input.empty() || input.length() < 2) {
+bool eh_Nstring(const string& palavra) {
+    if (palavra.empty() || palavra.length() < 2) {
         return false;
     }
 
-    if (input.front() != '"' || input.back() != '"') {
+    if (palavra.front() != '"' || palavra.back() != '"') {
         return false;
     }
 
-    for (size_t i = 1; i < input.length() - 1; i++) {
-        char c = input[i];
+    for (size_t i = 1; i < palavra.length() - 1; i++) {
+        char c = palavra[i];
         if (isspace(c)) {
             continue; 
         }
@@ -95,130 +94,124 @@ bool isNstring(const string& input) {
     return true;
 }
 
-bool isNumber(const string& str){
-    if (str.empty())
+bool eh_numero(const string& palavra){
+    if (palavra.empty())
         return false;
     
-    bool hasDot = false;
-    bool hasDigit = false;
+    bool tem_ponto = false;
+    bool tem_digito = false;
     
-    for (char c : str) {
+    for (char c : palavra) {
         if (isdigit(c)) {
-            hasDigit = true;
+            tem_digito = true;
         } else if (c == '.') {
-            if (hasDot)
+            if (tem_ponto)
                 return false;
-            hasDot = true;
+            tem_ponto = true;
         } else {
             return false;  
         }
     }
     
-    return hasDigit && (hasDot || !str.empty());
+    return tem_digito && (tem_ponto || !palavra.empty());
 }
 
-Token le_Token(const string& token){
-    Token result;
-    result.lexeme = token;
+Token le_token(const string& token){
+    Token resultado;
+    resultado.lexema = token;
 
     // Ignorar caracteres em branco, tabulações, quebras de linha, retorno de carro e alimentação de formulário
-    string ignoredCharacters = " \t\n\r\f";
-    size_t startPos = token.find_first_not_of(ignoredCharacters);
-    if (startPos == string::npos) {
+    string caracteres_ignorados = " \t\n\r\f";
+    size_t posicao_inicial = token.find_first_not_of(caracteres_ignorados);
+    if (posicao_inicial == string::npos) {
         // Se o token contiver apenas caracteres ignorados, retorne um token inválido
-        result.tag = INVALIDO;
-        return result;
+        resultado.tag = INVALIDO;
+        return resultado;
     }
     
     // Remover caracteres ignorados do início e do final do token
-    size_t endPos = token.find_last_not_of(ignoredCharacters);
-    string cleanedToken = token.substr(startPos, endPos - startPos + 1);
+    size_t posicao_final = token.find_last_not_of(caracteres_ignorados);
+    string token_limpo = token.substr(posicao_inicial, posicao_final - posicao_inicial + 1);
     
-    if(isNumber(token)){
+    if(eh_numero(token)){
         if (token.find('.') != string::npos) {
-            result.tag = N_REAL;
+            resultado.tag = N_REAL;
         } else {
-            result.tag = N_INT;
+            resultado.tag = N_INT;
         }
     } else if (token == "int") {
-        result.tag = INT;
+        resultado.tag = INT;
     } else if (token == "float") {
-        result.tag = FLOAT;
+        resultado.tag = FLOAT;
     } else if (token == "char") {
-        result.tag = CHAR;
+        resultado.tag = CHAR;
     } else if (token == "bool") {
-        result.tag = BOOL;
+        resultado.tag = BOOL;
     } else if (token == "else") {
-        result.tag = ELSE;
+        resultado.tag = ELSE;
     } else if (token == "while") {
-        result.tag = WHILE;
+        resultado.tag = WHILE;
     } else if (token == "main") {
-        result.tag = MAIN;
+        resultado.tag = MAIN;
     } else if (token == "for") {
-        result.tag = FOR;
+        resultado.tag = FOR;
     } else if (token == "switch") {
-        result.tag = SWITCH;
+        resultado.tag = SWITCH;
     } else if (token == "++") {
-        result.tag = INCREMENTO;
+        resultado.tag = INCREMENTO;
     } else if (token == "--") {
-        result.tag = DECREMENTO;
+        resultado.tag = DECREMENTO;
     } else if (token == "=") {
-        result.tag = ATRIBUICAO;
-    } else if (token == "+") {
-        result.tag = OPER_ARIT;
-    } else if (token == "-") {
-        result.tag = OPER_ARIT;
-    } else if (token == "*") {
-        result.tag = OPER_ARIT;
-    } else if (token == "/") {
-        result.tag = OPER_ARIT;
+        resultado.tag = ATRIBUICAO;
+    } else if (token == "+" || token == "-" || token == "*" || token == "/"){
+        resultado.tag = OPER_ARIT;
     } else if (token == "==") {
-        result.tag = IGUAL;
+        resultado.tag = IGUAL;
     } else if (token == "!=") {
-        result.tag = DIFERENTE;
+        resultado.tag = DIFERENTE;
     } else if (token == ".") {
-        result.tag = PONTO;
+        resultado.tag = PONTO;
     } else if (token == ",") {
-        result.tag = VIRGULA;
+        resultado.tag = VIRGULA;
     } else if (token == ">=") {
-        result.tag = MAIOR_IGUAL;
+        resultado.tag = MAIOR_IGUAL;
     } else if (token == "<=") {
-        result.tag = MENOR_IGUAL;
+        resultado.tag = MENOR_IGUAL;
     } else if (token == ">") {
-        result.tag = MAIOR;
+        resultado.tag = MAIOR;
     } else if (token == "<") {
-        result.tag = MENOR;
+        resultado.tag = MENOR;
     } else if (token == "read") {
-        result.tag = READ;
+        resultado.tag = READ;
     } else if (token == "write") {
-        result.tag = WRITE;
+        resultado.tag = WRITE;
     } else if (token == "if") {
-        result.tag = IF;
+        resultado.tag = IF;
     } else if (token == ";") {
-        result.tag = PONTO_VIRGULA;
+        resultado.tag = PONTO_VIRGULA;
     } else if (token == "(") {
-        result.tag = ABRE_PARENTESES;
+        resultado.tag = ABRE_PARENTESES;
     } else if (token == ")") {
-        result.tag = FECHA_PARENTESES;
+        resultado.tag = FECHA_PARENTESES;
     } else if (token == "{") {
-        result.tag = ABRE_CHAVES;
+        resultado.tag = ABRE_CHAVES;
     } else if (token == "}") {
-        result.tag = FECHA_CHAVES;
+        resultado.tag = FECHA_CHAVES;
     } else if (token == "&&") {
-        result.tag = AND;
+        resultado.tag = AND;
     } else if (token == "||") {
-        result.tag = OR;
-    } else if(isNstring(cleanedToken)){
-        result.tag = N_STRING;
-    } else if (isIdentifier(cleanedToken)) {
-        result.tag = ID;
+        resultado.tag = OR;
+    } else if(eh_Nstring(token_limpo)){
+        resultado.tag = N_STRING;
+    } else if (eh_identificador(token_limpo)) {
+        resultado.tag = ID;
     } else {
-        result.tag = INVALIDO;
+        resultado.tag = INVALIDO;
     }
-    return result;
+    return resultado;
 }
 
-string tokenTagToString(TokenTag Tag) {
+string string_da_tag(TokenTag Tag) {
     switch (Tag) {
         case ID:
             return "ID";
@@ -299,8 +292,8 @@ int main() {
         istringstream iss(line);
         string str;
         while (iss >> str) {
-            Token token = le_Token(str);
-            cout << "Token: " << tokenTagToString(token.tag) << ", Lexema: " << token.lexeme  << endl;
+            Token token = le_token(str);
+            cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema  << endl;
         }
     }
 
