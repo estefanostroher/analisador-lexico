@@ -14,6 +14,8 @@ enum TokenTag{
     REAL,
     STRING,
     OPER_ARIT,
+    OPER_SAIDA,
+    OPER_ENTRADA,
     ATRIBUICAO,
     READ,
     WRITE,
@@ -29,7 +31,10 @@ enum TokenTag{
     FECHA_PARENTESES,
     ELSE,    
     WHILE,
+    COUT,
+    CIN,
     DO,
+    RETURN,
     INCREMENTO,
     DECREMENTO,
     FOR,
@@ -69,7 +74,8 @@ bool eh_identificador(const string& palavra) {
     return true;
 }
 
-bool eh_Nstring(const string& palavra) {
+
+bool eh_Nstring(const std::string& palavra) {
     if (palavra.empty() || palavra.length() < 2) {
         return false;
     }
@@ -80,16 +86,14 @@ bool eh_Nstring(const string& palavra) {
 
     for (size_t i = 1; i < palavra.length() - 1; i++) {
         char c = palavra[i];
-        if (isspace(c)) {
-            continue; 
-        }
-        if (!(isalpha(c) || isdigit(c) || ispunct(c))) {
+        if (!(isalpha(c) || isdigit(c) || ispunct(c) || isspace(c))) {
             return false;
         }
     }
 
     return true;
 }
+
 
 bool eh_numero(const string& palavra){
     if (palavra.empty())
@@ -151,7 +155,11 @@ Token le_token(const string& token){
         resultado.tag = BOOL;
     } else if (token_limpo == "string") {
         resultado.tag = STRING;
-    } else if (token_limpo == "else") {
+    } else if (token_limpo == "cout") {
+        resultado.tag = COUT;
+    } else if (token_limpo == "cin") {
+        resultado.tag = CIN;
+    }else if (token_limpo == "else") {
         resultado.tag = ELSE;
     } else if (token_limpo == "while") {
         resultado.tag = WHILE;
@@ -159,7 +167,9 @@ Token le_token(const string& token){
         resultado.tag = DO;
     } else if (token_limpo == "main") {
         resultado.tag = MAIN;
-    } else if (token_limpo == "for") {
+    } else if (token_limpo == "return") {
+        resultado.tag = RETURN;
+    }else if (token_limpo == "for") {
         resultado.tag = FOR;
     } else if (token_limpo == "switch") {
         resultado.tag = SWITCH;
@@ -179,7 +189,11 @@ Token le_token(const string& token){
         resultado.tag = PONTO;
     } else if (token_limpo == ",") {
         resultado.tag = VIRGULA;
-    } else if (token_limpo == ">=") {
+    }else if (token_limpo == ">>") {
+        resultado.tag = OPER_ENTRADA;
+    }else if (token_limpo == "<<") {
+        resultado.tag = OPER_SAIDA;
+    }else if (token_limpo == ">=") {
         resultado.tag = MAIOR_IGUAL;
     } else if (token_limpo == "<=") {
         resultado.tag = MENOR_IGUAL;
@@ -240,6 +254,10 @@ string string_da_tag(TokenTag Tag) {
             return "BOOL";
         case STRING:
             return "STRING";
+        case COUT:
+            return "COUT";
+        case CIN:
+            return "CIN";
         case ATRIBUICAO:
             return "ATRIBUIÇÃO";
         case ELSE:
@@ -254,6 +272,8 @@ string string_da_tag(TokenTag Tag) {
             return "SWITCH";
         case MAIN:
             return "MAIN";
+        case RETURN:
+            return "RETURN";
         case INCREMENTO:
             return "INCREMENTO";
         case DECREMENTO:
@@ -267,7 +287,11 @@ string string_da_tag(TokenTag Tag) {
         case VIRGULA:
             return "VIRGULA";
         case OPER_ARIT:
-            return "OPER_ARIT";
+            return "OPERADOR ARITMÉTICO";
+       case OPER_ENTRADA:
+            return "OPERADOR DE ENTRADA";
+       case OPER_SAIDA:
+            return "OPERADOR DE SAIDA";
         case READ:
             return "READ";
         case WRITE:
@@ -358,6 +382,10 @@ int main(int argc, char* argv[]) {
                         iss.get(c);
                         Token token = le_token(">=");
                         cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
+                    } else if (c == '>') {
+                        iss.get(c);
+                        Token token = le_token(">>");
+                        cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl; 
                     } else {
                         Token token = le_token(">");
                         cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
@@ -372,7 +400,11 @@ int main(int argc, char* argv[]) {
                         iss.get(c);
                         Token token = le_token("<=");
                         cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
-                    } else {
+                    } else if (c == '<') {
+                        iss.get(c);
+                        Token token = le_token("<<");
+                        cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl; 
+                    }else {
                         Token token = le_token("<");
                         cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
                     }
@@ -434,5 +466,4 @@ int main(int argc, char* argv[]) {
         cout << "Não foi possível abrir o arquivo." << endl;
     }
 
-    return 0;
 }
