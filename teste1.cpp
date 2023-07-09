@@ -2,10 +2,10 @@ int main(){
 	int a;
 	int b = 2;
 	int soma;
-	float c = 3.0;
+	double c = 3.0;
 	bool d = true;
 
-	cout << b;
+	cout << b << endl;
 	cin >> a;
  
 	string casa = "casa";
