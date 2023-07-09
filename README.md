@@ -52,9 +52,3 @@ Também é possível utilizar o makefile, apenas certifique-se de navegar ate o 
     make run analisador_lexico
 
     Os tokens encontrados serão exibidos no console, juntamente com suas tags e lexemas correspondentes.
-
-Considerações Finais
-
-O analisador léxico é uma etapa crucial no processo de compilação de um programa. Ele quebra o código-fonte em unidades léxicas significativas, facilitando o processamento posterior nas etapas de análise sintática, análise semântica e geração de código.
-
-O código fornecido implementa um analisador léxico simples em C++, capaz de reconhecer uma variedade de tokens, como palavras-chave, identificadores, números, operadores e delimitadores. Ele utiliza funções de validação para verificar se uma sequência de caracteres corresponde a um determinado tipo de lexema.
