@@ -28,7 +28,8 @@ enum TokenTag{
     ABRE_PARENTESES,
     FECHA_PARENTESES,
     ELSE,    
-    WHILE,   
+    WHILE,
+    DO,
     INCREMENTO,
     DECREMENTO,
     FOR,
@@ -154,6 +155,8 @@ Token le_token(const string& token){
         resultado.tag = ELSE;
     } else if (token_limpo == "while") {
         resultado.tag = WHILE;
+    } else if (token_limpo == "do") {
+        resultado.tag = DO;
     } else if (token_limpo == "main") {
         resultado.tag = MAIN;
     } else if (token_limpo == "for") {
@@ -243,6 +246,8 @@ string string_da_tag(TokenTag Tag) {
             return "ELSE";
         case WHILE:
             return "WHILE";
+        case DO:
+            return "DO";
         case FOR:
             return "FOR";
         case SWITCH:
