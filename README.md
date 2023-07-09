@@ -34,12 +34,11 @@ Para compilar o código do analisador léxico, siga as instruções abaixo:
 
     Execute o seguinte comando para compilar o código:
     
+    g++ analisador_lexico.cpp -o analisador_lexico
 
-g++ analisador_lexico.cpp -o analisador_lexico
+    Isso compilará o código e criará um arquivo executável chamado analisador_lexico no mesmo diretório.
 
-Isso compilará o código e criará um arquivo executável chamado analisador_lexico no mesmo diretório.
-
-Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
+    Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
 
 
 
