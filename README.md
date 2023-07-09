@@ -38,9 +38,7 @@ Para compilar o código do analisador léxico, siga as instruções abaixo:
 
     Isso compilará o código e criará um arquivo executável chamado analisador_lexico no mesmo diretório.
 
-    Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
-
-
+Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
 
     ./analisador_lexico <nome_do_arquivo>
 
