@@ -24,29 +24,23 @@ Compilação e Execução
 
 Para compilar o código do analisador léxico, siga as instruções abaixo:
 
-    Certifique-se de ter um compilador C++ instalado, como o GCC.
+- Certifique-se de ter um compilador C++ instalado, como o GCC.
+- Salve o código do analisador léxico em um arquivo com a extensão .cpp, por exemplo, analisador_lexico.cpp.
+- Abra um terminal e navegue até o diretório onde o arquivo .cpp está localizado.
 
-    Salve o código do analisador léxico em um arquivo com a extensão .cpp, por exemplo, analisador_lexico.cpp.
-
-    Abra um terminal e navegue até o diretório onde o arquivo .cpp está localizado.
-
-    Execute o seguinte comando para compilar o código:
+Execute o seguinte comando para compilar o código:
     
     g++ analisador_lexico.cpp -o analisador_lexico
 
-    Isso compilará o código e criará um arquivo executável chamado analisador_lexico no mesmo diretório.
-
-Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
+Isso compilará o código e criará um arquivo executável chamado analisador_lexico no mesmo diretório. Agora, você pode executar o analisador léxico fornecendo um arquivo de código-fonte como argumento:
 
     ./analisador_lexico <nome_do_arquivo>
 
-    Substitua <nome_do_arquivo> pelo caminho ou nome do arquivo de código-fonte que você deseja analisar.
-
-    Os tokens encontrados serão exibidos no console, juntamente com suas tags e lexemas correspondentes.
+Substitua <nome_do_arquivo> pelo caminho ou nome do arquivo de código-fonte que você deseja analisar. Os tokens encontrados serão exibidos no console, juntamente com suas tags e lexemas correspondentes.
     
 
 Também é possível utilizar o makefile, apenas certifique-se de navegar ate o diretório onde o arquivo .cpp está localizado, segue as instruções abaixo:
 
     make run analisador_lexico
 
-    Os tokens encontrados serão exibidos no console, juntamente com suas tags e lexemas correspondentes.
+Os tokens encontrados serão exibidos no console, juntamente com suas tags e lexemas correspondentes.
