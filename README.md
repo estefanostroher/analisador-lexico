@@ -1,6 +1,4 @@
-# analisador-lexico
-
-Analisador Léxico
+# Analisador Léxico
 
 O analisador léxico é uma parte essencial de um compilador, responsável por analisar o código-fonte e dividir em unidades léxicas chamadas tokens. Cada token representa uma sequência de caracteres com significado semântico, como palavras-chave, identificadores, números, operadores, delimitadores, etc.
 
