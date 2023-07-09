@@ -6,6 +6,8 @@ analisadorLexico: analisadorLexico.cpp
 
 .PHONY: clean run
 
+run: analisadorLexico
+	./analisadorLexico teste1.cpp
+
 clean:
 	rm -f analisadorLexico
-
