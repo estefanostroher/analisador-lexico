@@ -9,6 +9,7 @@ enum TokenTag{
     ID,
     INT,
     FLOAT,
+    DOUBLE,
     CHAR,
     BOOL,
     REAL,
@@ -33,6 +34,7 @@ enum TokenTag{
     WHILE,
     COUT,
     CIN,
+    ENDL,
     DO,
     RETURN,
     INCREMENTO,
@@ -149,6 +151,8 @@ Token le_token(const string& token){
         resultado.tag = INT;
     } else if (token_limpo == "float") {
         resultado.tag = FLOAT;
+    } else if (token_limpo == "double") {
+        resultado.tag = DOUBLE;
     } else if (token_limpo == "char") {
         resultado.tag = CHAR;
     } else if (token_limpo == "bool") {
@@ -159,7 +163,9 @@ Token le_token(const string& token){
         resultado.tag = COUT;
     } else if (token_limpo == "cin") {
         resultado.tag = CIN;
-    }else if (token_limpo == "else") {
+    } else if (token_limpo == "endl") {
+        resultado.tag = ENDL;
+    } else if (token_limpo == "else") {
         resultado.tag = ELSE;
     } else if (token_limpo == "while") {
         resultado.tag = WHILE;
@@ -248,6 +254,8 @@ string string_da_tag(TokenTag Tag) {
             return "INT";
         case FLOAT:
             return "FLOAT";
+        case DOUBLE:
+            return "DOUBLE";
         case CHAR:
             return "CHAR";
         case BOOL:
@@ -258,6 +266,8 @@ string string_da_tag(TokenTag Tag) {
             return "COUT";
         case CIN:
             return "CIN";
+        case ENDL:
+            return "ENDL";
         case ATRIBUICAO:
             return "ATRIBUIÇÃO";
         case ELSE:
