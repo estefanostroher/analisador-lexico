@@ -1,13 +1,13 @@
 CC = g++
 CFLAGS = -std=c++11
 
-analisadorLexico: analisadorLexico.cpp
-	$(CC) $(CFLAGS) analisadorLexico.cpp -o analisadorLexico
+analisadorLexico: analisador_lexico.cpp
+	$(CC) $(CFLAGS) analisador_lexico.cpp -o analisador_lexico
 
 .PHONY: clean run
 
 run: analisadorLexico
-	./analisadorLexico teste1.cpp
+	./analisado_lexico teste1.cpp
 
 clean:
 	rm -f analisadorLexico
