@@ -129,112 +129,98 @@ bool eh_bool(const string& palavra){
 Token le_token(const string& token){
     Token resultado;
 
-    string caracteres_ignorados = " \t\n\r\f";
-    size_t posicao_inicial = token.find_first_not_of(caracteres_ignorados);
-    if (posicao_inicial == string::npos) {
-        resultado.tag = INVALIDO;
-        return resultado;
-    }
-
-    size_t posicao_final = token.find_last_not_of(caracteres_ignorados);
-    string token_limpo = token.substr(posicao_inicial, posicao_final - posicao_inicial + 1);
-
-    if(eh_numero(token_limpo)){
+    if(eh_numero(token)){
         if (token.find('.') != string::npos) {
             resultado.tag = N_REAL;
         } else {
             resultado.tag = N_INT;
         }
-    } else if(eh_bool(token_limpo)){
+    } else if(eh_bool(token)){
         resultado.tag = N_BOOL;
-    } else if (token_limpo == "int") {
+    } else if (token == "int") {
         resultado.tag = INT;
-    } else if (token_limpo == "float") {
+    } else if (token == "float") {
         resultado.tag = FLOAT;
-    } else if (token_limpo == "double") {
-        resultado.tag = DOUBLE;
-    } else if (token_limpo == "char") {
+    } else if (token == "char") {
         resultado.tag = CHAR;
-    } else if (token_limpo == "bool") {
+    } else if (token == "bool") {
         resultado.tag = BOOL;
-    } else if (token_limpo == "string") {
+    } else if (token == "string") {
         resultado.tag = STRING;
-    } else if (token_limpo == "cout") {
+    } else if (token == "cout") {
         resultado.tag = COUT;
-    } else if (token_limpo == "cin") {
+    } else if (token == "cin") {
         resultado.tag = CIN;
-    } else if (token_limpo == "endl") {
-        resultado.tag = ENDL;
-    } else if (token_limpo == "else") {
+    } else if (token == "else") {
         resultado.tag = ELSE;
-    } else if (token_limpo == "while") {
+    } else if (token == "while") {
         resultado.tag = WHILE;
-    } else if (token_limpo == "do") {
+    } else if (token == "do") {
         resultado.tag = DO;
-    } else if (token_limpo == "main") {
+    } else if (token == "main") {
         resultado.tag = MAIN;
-    } else if (token_limpo == "return") {
+    } else if (token == "return") {
         resultado.tag = RETURN;
-    }else if (token_limpo == "for") {
+    } else if (token == "for") {
         resultado.tag = FOR;
-    } else if (token_limpo == "switch") {
+    } else if (token == "switch") {
         resultado.tag = SWITCH;
-    } else if (token_limpo == "++") {
+    } else if (token == "++") {
         resultado.tag = INCREMENTO;
-    } else if (token_limpo == "--") {
+    } else if (token == "--") {
         resultado.tag = DECREMENTO;
-    } else if (token_limpo == "=") {
+    } else if (token == "=") {
         resultado.tag = ATRIBUICAO;
-    } else if (token_limpo == "+" || token_limpo == "-" || token_limpo == "*" || token_limpo == "/"){
+    } else if (token == "+" || token == "-" || token == "*" || token == "/"){
         resultado.tag = OPER_ARIT;
-    } else if (token_limpo == "==") {
+    } else if (token == "==") {
         resultado.tag = IGUAL;
-    } else if (token_limpo == "!=") {
+    } else if (token == "!=") {
         resultado.tag = DIFERENTE;
-    } else if (token_limpo == ".") {
+    } else if (token == ".") {
         resultado.tag = PONTO;
-    } else if (token_limpo == ",") {
+    } else if (token == ",") {
         resultado.tag = VIRGULA;
-    }else if (token_limpo == ">>") {
+    } else if (token == ">>") {
         resultado.tag = OPER_ENTRADA;
-    }else if (token_limpo == "<<") {
+    } else if (token == "<<") {
         resultado.tag = OPER_SAIDA;
-    }else if (token_limpo == ">=") {
+    } else if (token == ">=") {
         resultado.tag = MAIOR_IGUAL;
-    } else if (token_limpo == "<=") {
+    } else if (token == "<=") {
         resultado.tag = MENOR_IGUAL;
-    } else if (token_limpo == ">") {
+    } else if (token == ">") {
         resultado.tag = MAIOR;
-    } else if (token_limpo == "<") {
+    } else if (token == "<") {
         resultado.tag = MENOR;
-    } else if (token_limpo == "read") {
+    } else if (token == "read") {
         resultado.tag = READ;
-    } else if (token_limpo == "write") {
+    } else if (token == "write") {
         resultado.tag = WRITE;
-    } else if (token_limpo == "if") {
+    } else if (token == "if") {
         resultado.tag = IF;
-    } else if (token_limpo == ";") {
+    } else if (token == ";") {
         resultado.tag = PONTO_VIRGULA;
-    } else if (token_limpo == "(") {
+    } else if (token == "(") {
         resultado.tag = ABRE_PARENTESES;
-    } else if (token_limpo == ")") {
+    } else if (token == ")") {
         resultado.tag = FECHA_PARENTESES;
-    } else if (token_limpo == "{") {
+    } else if (token == "{") {
         resultado.tag = ABRE_CHAVES;
-    } else if (token_limpo == "}") {
+    } else if (token == "}") {
         resultado.tag = FECHA_CHAVES;
-    } else if (token_limpo == "&&") {
+    } else if (token == "&&") {
         resultado.tag = AND;
-    } else if (token_limpo == "||") {
+    } else if (token == "||") {
         resultado.tag = OR;
-    } else if(eh_Nstring(token_limpo)){
+    } else if (eh_Nstring(token)){
         resultado.tag = N_STRING;
-    } else if (eh_identificador(token_limpo)) {
+    } else if (eh_identificador(token)) {
         resultado.tag = ID;
     } else {
         resultado.tag = INVALIDO;
     }
-    resultado.lexema = token_limpo;
+    resultado.lexema = token;
     return resultado;
 }
 
