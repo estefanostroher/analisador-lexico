@@ -37,6 +37,11 @@ enum TokenTag{
     ENDL,
     DO,
     RETURN,
+    VOID,
+    CLASS,
+    PUBLIC,
+    PRIVATE,
+    PROTECTED,
     INCREMENTO,
     DECREMENTO,
     FOR,
@@ -157,6 +162,16 @@ Token le_token(const string& token){
         resultado.tag = WHILE;
     } else if (token == "do") {
         resultado.tag = DO;
+    } else if (token == "void") {
+        resultado.tag = VOID;
+    } else if (token == "class") {
+        resultado.tag = CLASS;
+    } else if (token == "public") {
+        resultado.tag = PUBLIC;
+    } else if (token == "private") {
+        resultado.tag = PRIVATE;
+    } else if (token == "protected") {
+        resultado.tag = PROTECTED;
     } else if (token == "main") {
         resultado.tag = MAIN;
     } else if (token == "return") {
@@ -262,6 +277,16 @@ string string_da_tag(TokenTag Tag) {
             return "WHILE";
         case DO:
             return "DO";
+        case VOID:
+            return "VOID";
+        case CLASS:
+            return "CLASS";
+        case PUBLIC:
+            return "PUBLIC";
+        case PRIVATE:
+            return "PRIVATE";
+        case PROTECTED:
+            return "PROTECTED";
         case FOR:
             return "FOR";
         case SWITCH:
