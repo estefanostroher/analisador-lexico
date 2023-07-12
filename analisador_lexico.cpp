@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <ctype.h>
 
 using namespace std;
 
@@ -93,7 +94,7 @@ bool eh_Nstring(const std::string& palavra) {
 
     for (size_t i = 1; i < palavra.length() - 1; i++) {
         char c = palavra[i];
-        if (!(isalpha(c) || isdigit(c) || ispunct(c) || isspace(c))) {
+        if (!(isalpha(c) || !isdigit(c) || !ispunct(c) || !isspace(c))) {
             return false;
         }
     }
@@ -146,6 +147,8 @@ Token le_token(const string& token){
         resultado.tag = INT;
     } else if (token == "float") {
         resultado.tag = FLOAT;
+    } else if (token == "double") {
+        resultado.tag = DOUBLE; 
     } else if (token == "char") {
         resultado.tag = CHAR;
     } else if (token == "bool") {
@@ -156,6 +159,8 @@ Token le_token(const string& token){
         resultado.tag = COUT;
     } else if (token == "cin") {
         resultado.tag = CIN;
+    } else if (token == "endl") {
+        resultado.tag = ENDL; 
     } else if (token == "else") {
         resultado.tag = ELSE;
     } else if (token == "while") {
@@ -365,7 +370,19 @@ int main(int argc, char* argv[]) {
             string str;
 
             while (iss.get(c)) {
-                if (isspace(c)) {
+                if(c == '"'){
+                    while(true){
+                        if(eh_Nstring(str)){
+                            Token token = le_token(str);
+                            cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
+                            str.clear();
+                            break;
+                        }
+                    str += c;
+                    iss.get(c);
+                    continue;
+                    }
+                } else if (isspace(c)) {
                     if (!str.empty()) {
                         Token token = le_token(str);
                         cout << "Token: " << string_da_tag(token.tag) << ", Lexema: " << token.lexema << endl;
