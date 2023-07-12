@@ -8,7 +8,7 @@ int main(){
 	cout << b << endl;
 	cin >> a;
  
-	string casa = "casa";
+	string casa = "casa pequena";
 
 	if(b==2){
 		soma = a+b;
